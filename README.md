@@ -1,13 +1,12 @@
 # history-museum
 
-## Project setup
-```
-npm install
-```
+Used Vue and Bootstrap to create Space page and Highlight component
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## Setup: 
+
+1. Clone repo
+2. `cd frontend-engineer-tech-test`
+3. `npm install`
 ```
 
 ### Compiles and minifies for production
