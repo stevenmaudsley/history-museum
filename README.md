@@ -5,8 +5,10 @@ Used Vue and Bootstrap to create Space page and Highlight component
 ## Setup: 
 
 1. Clone repo
-2. `cd frontend-engineer-tech-test`
+2. `cd history-museum`
 3. `npm install`
+4. `npm run serve`
+
 ```
 
 ### Compiles and minifies for production
