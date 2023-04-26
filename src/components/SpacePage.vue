@@ -1,24 +1,35 @@
 <template>
   <div class="space-page">
-    <h1 class="space-page__title">Space</h1>
-
+    <header-component class="px-1 px-md-5 py-3" />
+    <h1 class="space-page__title px-5 pt-5">Space</h1>
     <!-- Add the museum highlight cards based on the data provided below -->
-    <MuseumHighlight />
+    <div class="d-flex flex-column flex-md-row flex-wrap">
+      <museum-highlight
+        v-for="(entry, i) in combinedHighights"
+        :key="i"
+        :data="entry"
+        class="d-flex flex-column col-12 col-md-4 col-lg-3 p-5"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import MuseumHighlight from "./MuseumHighlight";
+import HeaderComponent from "./Header";
 
 export default {
   name: "SpacePage",
   components: {
+    HeaderComponent,
     MuseumHighlight,
   },
   mixins: [],
   props: {},
   data() {
     return {
+      combinedHighights: [],
+      sortedHighlights: [],
       spaceHighlights: [
         {
           date: "2020-04-20 12:20:00",
@@ -72,8 +83,31 @@ export default {
     };
   },
   computed: {},
-  methods: {},
-  created() {},
+  methods: {
+    sortByDate(b, a) {
+      const key = "date";
+      let firstComparable = this.findComparable(a, key);
+      let secondComparable = this.findComparable(b, key);
+      return (
+        new Date(secondComparable).valueOf() -
+        new Date(firstComparable).valueOf()
+      );
+    },
+    findComparable(obj, key) {
+      return Object.getOwnPropertyDescriptor(obj, key)
+        ? obj.date
+        : obj.createdAt;
+    },
+  },
+  created() {
+    const partnerHighlights = Object.entries(this.spacePartners).map(
+      (entry) => entry[1]
+    );
+    this.combinedHighights = [...this.spaceHighlights, ...partnerHighlights];
+    this.sortedHighlights = this.combinedHighights.sort((a, b) =>
+      this.sortByDate(b, a)
+    );
+  },
 };
 </script>
 
